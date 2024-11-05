@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>dataSensor</title>
+
+	<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+	<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+	<link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+	<!-- End plugin css for this page -->
+
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<link rel="shortcut icon" href="assets/images/favicon.png" />
+</head>
+
+<body>
+	<!-- partial -->
+	<div class="container-fluid page-body-wrapper">
+		<!-- partial:partials/_sidebar.html -->
+		<div th:replace="sidebar :: nav"></div>
+		<!-- partial -->
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<form action="#" th:action="@{/dataSensor}" method="get">
+					<div class="row g-3">
+						<div class="col-md-3">
+							<select class="form-select" name="criteria" id="criteria" onchange="toggleTimeInput()">
+								<option value="temperature">Nhiệt độ</option>
+								<option value="humidity">Độ ẩm</option>
+								<option value="light">Ánh sáng</option>
+								<option value="time">Thời gian</option>
+							</select>
+						</div>
+
+						<!-- Ô nhập giá trị tìm kiếm thông thường -->
+						<div class="col-md-6" id="single-input">
+							<input type="text" class="form-control" name="value" placeholder="Nhập giá trị cần tìm">
+						</div>
+
+						<!-- Ô nhập khoảng thời gian (bắt đầu và kết thúc) -->
+						<div class="col-md-6" id="time-inputs" style="display:none;">
+							<div class="row">
+								<div class="col-md-6">
+									<input type="datetime-local" class="form-control" name="startTime"
+										placeholder="Thời gian bắt đầu">
+								</div>
+								<div class="col-md-6">
+									<input type="datetime-local" class="form-control" name="endTime"
+										placeholder="Thời gian kết thúc">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+						</div>
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="pageSize" class="form-label">Page Size:</label>
+						<select id="pageSize" name="size" class="" onchange="this.form.submit()">
+							<option th:value="5" th:text="'5'" th:selected="${pageSize == 5}"></option>
+							<option th:value="10" th:text="'10'" th:selected="${pageSize == 10}"></option>
+							<option th:value="20" th:text="'20'" th:selected="${pageSize == 20}"></option>
+							<option th:value="50" th:text="'50'" th:selected="${pageSize == 50}"></option>
+						</select>
+					</div>
+					<div>
+						<!-- Display the list of dataSensor -->
+						<table class="table ">
+							<thead class="table-danger">
+								<tr>
+									<th>
+										<a th:href="@{/dataSensor(page=${currentPage}, 
+			                        size=${pageSize}, sortBy='id', 
+			                        sortOrder=${sortBy == 'id' 
+			                        && sortOrder == 'asc' ? 'desc' : 'asc'}, 
+                              criteria=${criteria}, 
+                              value=${value})}">
+											ID
+											<i
+												th:classappend="${sortBy == 'id' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/dataSensor(page=${currentPage},
+			                         size=${pageSize}, sortBy='temp', 
+			                         sortOrder=${sortBy == 'temp' && 
+			                         sortOrder == 'asc' ? 'desc' : 'asc'},
+                               criteria=${criteria}, 
+                              value=${value})}">
+											nhiệt độ
+											<i
+												th:classappend="${sortBy == 'temp' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/dataSensor(page=${currentPage}, 
+			                        size=${pageSize}, sortBy='hum', 
+			                        sortOrder=${sortBy == 'hum' &&
+			                        sortOrder == 'asc' ? 'desc' : 'asc'},
+                              criteria=${criteria}, 
+                              value=${value})}">
+											Độ ẩm
+											<i
+												th:classappend="${sortBy == 'hum' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/dataSensor(page=${currentPage}, 
+			                        size=${pageSize}, sortBy='light', 
+			                        sortOrder=${sortBy == 'light' &&
+			                        sortOrder == 'asc' ? 'desc' : 'asc'},
+                              criteria=${criteria}, 
+                              value=${value})}">
+											Ánh sáng
+											<i
+												th:classappend="${sortBy == 'light' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/dataSensor(page=${currentPage}, 
+			                        size=${pageSize}, sortBy='time', 
+			                        sortOrder=${sortBy == 'time' &&
+			                        sortOrder == 'asc' ? 'desc' : 'asc'},
+                              criteria=${criteria}, 
+                              value=${value})}">
+											Thời gian
+											<i
+												th:classappend="${sortBy == 'time' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="dataSensor : ${dataSensorPage.content}">
+									<td th:text="${dataSensor.id}"></td>
+									<td th:text="${dataSensor.temp}"></td>
+									<td th:text="${dataSensor.hum}"></td>
+									<td th:text="${dataSensor.light}"></td>
+									<td th:text="${dataSensor.time}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<nav>
+						<ul class="pagination justify-content-center">
+<!--							<li th:if="${currentPage > 2}" class="page-item">-->
+<!--							        <a th:href="@{/dataSensor(page=0, size=${pageSize}, -->
+<!--							          sortBy=${sortBy}, sortOrder=${sortOrder}, -->
+<!--							          criteria=${criteria}, value=${value})}" -->
+<!--							          class="page-link">1</a>-->
+<!--						    </li>-->
+<!--							Previous button-->
+							<li th:class="${currentPage == 0} ? 'disabled' : ''" class="page-item">
+								<a th:href="${currentPage == 0} ? '#' : 
+									                @{/dataSensor(page=${currentPage - 1}, 
+									                size=${pageSize}, 
+									                sortBy=${sortBy}, sortOrder=${sortOrder},
+						                      criteria=${criteria}, 
+						                      value=${value})}" aria-label="Previous" class="page-link">
+									<span aria-hidden="true">&laquo;</span>
+<!--										Previous-->
+								</a>
+
+							</li>
+<!--							Page numbers-->
+<!--							<li th:each="i : ${#numbers.sequence(0, dataSensorPage.totalPages - 1)}"-->
+<!--								th:class="${currentPage == i} ? 'active' : ''">-->
+<!--								<a th:href="@{/dataSensor(page=${i}, size=${pageSize}, -->
+<!--									                sortBy=${sortBy}, sortOrder=${sortOrder},-->
+<!--						                      criteria=${criteria}, -->
+<!--						                      value=${value})}" th:text="${i + 1}" class="page-link">1</a>-->
+<!--							</li>-->
+								<li th:each="i : ${#numbers.sequence(
+								        T(java.lang.Math).max(0, currentPage - 2), 
+								        T(java.lang.Math).min(dataSensorPage.totalPages - 1, currentPage + 2))}"
+								        th:classappend="${currentPage == i} ? ' active' : ''" class="page-item">
+								        <a th:href="@{/dataSensor(page=${i}, size=${pageSize}, 
+								          sortBy=${sortBy}, sortOrder=${sortOrder}, 
+								          criteria=${criteria}, value=${value})}" 
+								          th:text="${i + 1}" class="page-link"></a>
+								    </li>
+<!--							Next button-->
+							<li th:class="${currentPage == dataSensorPage.totalPages - 1} ? 'disabled' : ''">
+								<a th:href="${currentPage == dataSensorPage.totalPages - 1} ? '#' : 
+						                      @{/dataSensor(page=${currentPage + 1}, size=${pageSize}, 
+						                      sortBy=${sortBy}, sortOrder=${sortOrder},
+						                      criteria=${criteria}, 
+						                          value=${value})}" aria-label="Next" class="page-link">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+<!--							<li th:if="${currentPage < dataSensorPage.totalPages - 3}" class="page-item">-->
+<!--						        <a th:href="@{/dataSensor(page=${dataSensorPage.totalPages - 1}, size=${pageSize}, -->
+<!--						          sortBy=${sortBy}, sortOrder=${sortOrder}, -->
+<!--						          criteria=${criteria}, value=${value})}" -->
+<!--						          th:text="${dataSensorPage.totalPages}" class="page-link"></a>-->
+<!--						    </li>-->
+						</ul>
+					</nav>
+				</form>
+			</div>
+			<!-- main-panel ends -->
+			<!-- page-body-wrapper ends -->
+		</div>
+		<!-- container-scroller -->
+		<!-- plugins:js -->
+		<script src="assets/vendors/js/vendor.bundle.base.js"></script>
+		<!-- endinject -->
+		<!-- Plugin js for this page -->
+		<script src="assets/vendors/chart.js/chart.umd.js"></script>
+		<!-- <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script> -->
+		<!-- End plugin js for this page -->
+		<!-- inject:js -->
+		<!-- endinject -->
+		<!-- Custom js for this page -->
+		<script src="assets/js/chartTH.js"></script>
+		<script src="assets/js/luxChart.js"></script>
+		<script src="assets/js/dashboard.js"></script>
+		<!-- End custom js for this page -->
+</body>
+
+</html>

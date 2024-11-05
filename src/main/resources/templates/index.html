@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/assets/vendors/font-awesome/css/font-awesome.min.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- End plugin css for this page -->
+    
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="shortcut icon" href="/assets/images/favicon.png" />
+  </head>
+  <body>
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+          <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+          <!-- <a href="index.html"><img src="https://code.ptit.edu.vn/2020/images/logo_ptit.png" alt="" style="width: 50%; height: 50%;"></a> -->
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button> -->
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/face1.jpg" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black">Phùng Minh Hiếu</p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="mdi mdi-cached me-2 text-success"></i> Xem Profile </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Đăng xuất </a>
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="assets/images/faces/face1.jpg" alt="profile" />
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2">Phùng Minh Hiếu</span>
+                  <span class="text-secondary text-small">Sinh viên PTIT</span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dataSensor">
+                <span class="menu-title">Data Sensor</span>
+                <i class="mdi mdi-access-point-minus menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/actionHistory">
+                <span class="menu-title">Action History</span>
+                <i class="mdi mdi-cursor-default-click-outline menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">
+                <span class="menu-title">Profile</span>
+                <i class="mdi mdi-account-card-outline menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                  <i class="mdi mdi-home"></i>
+                </span> Dashboard
+              </h3>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Nhiệt độ <i class="mdi mdi-thermometer-low mdi-24px float-end"></i>
+                    </h4>
+                    <h2 id="boardT" class="mb-5">15 <span class="mdi mdi-temperature-celsius mdi-24px"></span></h2>
+                    <!-- <h6 class="card-text">Increased by 60%</h6> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Độ ẩm <i class="mdi mdi-water-outline mdi-24px float-end"></i>
+                    </h4>
+                    <h2 id="boardH" class="mb-5">45,6334 <span class="mdi mdi-percent-outline"></span></h2>
+                    <!-- <h6 class="card-text">Decreased by 10%</h6> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Ánh sáng <i class="mdi mdi-sun-thermometer-outline mdi-24px float-end"></i>
+                    </h4>
+                    <h2 id="boardL" class="mb-5">95,5741 <span>LUX</span></h2>
+                    <!-- <h6 class="card-text">Increased by 5%</h6> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="clearfix">
+                      <h4 class="card-title float-start">Biểu đồ dữ liệu</h4>
+                      <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-end"></div>
+                    </div>
+                    <!-- <canvas id="visit-sale-chart" class="mt-4"></canvas> -->
+                    <canvas id="tHChart" class="mt-4"></canvas>
+<!--                    <canvas id="luxChart" class="mt-4"></canvas>-->
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Traffic Sources</h4>
+                    <div class="doughnutjs-wrapper d-flex justify-content-center">
+                      <canvas id="traffic-chart"></canvas>
+                    </div>
+                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>Bật tắt thiết bị</h3>
+                  </div>
+                  <div class="col-md-12">
+                    <div id="d1" class="card bg-gradient-secondary">
+                      <div class="card-body">
+                        <div class="form-check form-switch float-end">
+                          <input class="form-check-input" type="checkbox" role="switch" id="fan" />
+                          <!-- <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label> -->
+                        </div>
+                        <img id="fan1" src="assets/images/fan.png" alt="" style="height: 10%;width: 10%;" 
+                        class="visible">
+                        <!-- <img id="fan2" src="assets/images/fanDT.jpg" alt="" style="height: 10%;width: 10%;" > -->
+                        <h2>Quạt</h2>                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                    <div id="d2" class="card bg-gradient-secondary">
+                      <div class="card-body">
+                        <div class="form-check form-switch float-end">
+                          <input class="form-check-input" type="checkbox" role="switch" id="air_conditioner" />
+                          <!-- <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label> -->
+                        </div>
+                        <img src="assets/images/air_conditioner.png" alt="" style="height: 10%;width: 10%;">
+                        <h2>Điều hòa</h2>                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                    <div id="d3" class="card bg-gradient-secondary">
+                      <div class="card-body">
+                        <div class="form-check form-switch float-end">
+                          <input class="form-check-input" type="checkbox" role="switch" id="lamp" />
+                          <!-- <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label> -->
+                        </div>
+                        <img src="assets/images/lamp.jpg" alt="" style="height: 10%;width: 10%;">
+                        <h2>Đèn</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 <a href="https://www.bootstrapdash.com/" target="_blank"></a>. All rights reserved.</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with me<i class="mdi mdi-heart text-danger"></i></span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div> 
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/assets/vendors/chart.js/chart.umd.js"></script>
+    <!-- <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script> -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/assets/js/chartTH.js"></script>
+    <script src="/assets/js/luxChart.js"></script>
+    <script src="/assets/js/switchOnOff.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+	<script src="/assets/js/board3.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

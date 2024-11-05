@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Purple Admin</title>
+
+	<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+	<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+	<link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+	<!-- End plugin css for this page -->
+
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<link rel="shortcut icon" href="assets/images/favicon.png" />
+	<!-- <script src="TimeChoose.js"></script> -->
+</head>
+
+<body>
+	<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+		<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+			<a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+			<a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg"
+					alt="logo" /></a>
+			<!-- <a href="index.html"><img src="https://code.ptit.edu.vn/2020/images/logo_ptit.png" alt="" style="width: 50%; height: 50%;"></a> -->
+		</div>
+		<div class="navbar-menu-wrapper d-flex align-items-stretch">
+			<!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button> -->
+			<ul class="navbar-nav navbar-nav-right">
+				<li class="nav-item nav-profile dropdown">
+					<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						<div class="nav-profile-img">
+							<img src="assets/images/faces/face1.jpg" alt="image">
+							<span class="availability-status online"></span>
+						</div>
+						<div class="nav-profile-text">
+							<p class="mb-1 text-black">Phùng Minh Hiếu</p>
+						</div>
+					</a>
+					<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+						<a class="dropdown-item" href="#">
+							<i class="mdi mdi-cached me-2 text-success"></i> Xem Profile </a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">
+							<i class="mdi mdi-logout me-2 text-primary"></i> Đăng xuất </a>
+					</div>
+				</li>
+				<li class="nav-item d-none d-lg-block full-screen-link">
+					<a class="nav-link">
+						<i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+					</a>
+				</li>
+			</ul>
+			<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+				data-toggle="offcanvas">
+				<span class="mdi mdi-menu"></span>
+			</button>
+		</div>
+	</nav>
+	<!-- partial -->
+	<div class="container-fluid page-body-wrapper">
+		<!-- partial:partials/_sidebar.html -->
+		<div th:replace="sidebar :: nav"></div>
+		<!-- partial -->
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<form action="#" th:action="@{/actionHistory}" method="get">
+					<div class="row g-3">
+						<div class="col-md-3">
+							<select class="form-select" name="criteria" id="criteria">
+								<option value="deviceType">Tên thiết bị</option>
+								<option value="time">Thời gian</option>
+							</select>
+						</div>
+			  
+						<!-- Ô nhập giá trị tìm kiếm thông thường -->
+						<div class="col-md-6" id="single-input">
+							<input type="text" class="form-control" name="value" placeholder="Nhập giá trị cần tìm">
+						</div>
+			  
+						<!-- Ô nhập khoảng thời gian (bắt đầu và kết thúc) -->
+						<div class="col-md-6" id="time-inputs" style="display:none;">
+							<div class="row">
+								<div class="col-md-6">
+									<input type="datetime-local" class="form-control" name="startTime" placeholder="Thời gian bắt đầu">
+								</div>
+								<div class="col-md-6">
+									<input type="datetime-local" class="form-control" name="endTime" placeholder="Thời gian kết thúc">
+								</div>
+							</div>
+						</div>
+			  
+						<div class="col-md-3">
+							<button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+						</div>
+					</div>
+					<div>
+						<label for="pageSize">Page Size:</label>
+						<select id="pageSize" name="size" onchange="this.form.submit()">
+							<option th:value="5" th:text="'5'" th:selected="${pageSize == 5}"></option>
+							<option th:value="10" th:text="'10'" th:selected="${pageSize == 10}"></option>
+							<option th:value="20" th:text="'20'" th:selected="${pageSize == 20}"></option>
+							<option th:value="50" th:text="'50'" th:selected="${pageSize == 50}"></option>
+						</select>
+					</div>
+					
+					<div>
+						<!-- Display the list of dataSensor -->
+						<table class="table ">
+							<thead class="table-danger">
+								<tr>
+									<th>
+										<a th:href="@{/actionHistory(page=${currentPage}, 
+						                        size=${pageSize}, sortBy='id', 
+						                        sortOrder=${sortBy == 'id' 
+						                        && sortOrder == 'asc' ? 'desc' : 'asc'},
+												criteria=${criteria}, 
+                              					value=${value})}">
+											ID
+											<i
+												th:classappend="${sortBy == 'id' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/actionHistory(page=${currentPage},
+						                         size=${pageSize}, sortBy='deviceType', 
+						                         sortOrder=${sortBy == 'deviceType' && 
+						                         sortOrder == 'asc' ? 'desc' : 'asc'},
+												 criteria=${criteria}, 
+												value=${value})}">
+											Kiểu thiết bị
+											<i
+												th:classappend="${sortBy == 'deviceType' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/actionHistory(page=${currentPage}, 
+						                        size=${pageSize}, sortBy='status', 
+						                        sortOrder=${sortBy == 'status' &&
+						                        sortOrder == 'asc' ? 'desc' : 'asc'},
+												criteria=${criteria}, 
+												value=${value}
+											)}">
+											Tình trạng
+											<i
+												th:classappend="${sortBy == 'status' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+									<th>
+										<a th:href="@{/actionHistory(page=${currentPage}, 
+						                        size=${pageSize}, sortBy='time', 
+						                        sortOrder=${sortBy == 'time' &&
+						                        sortOrder == 'asc' ? 'desc' : 'asc'},
+												criteria=${criteria}, 
+                              					value=${value})}">
+											Thời gian
+											<i
+												th:classappend="${sortBy == 'time' ? (sortOrder == 'asc' ? 'fas fa-chevron-up' : 'fas fa-chevron-down') : ''}"></i>
+										</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="actionHistory : ${actionHistoryPage.content}">
+									<td th:text="${actionHistory.id}"></td>
+									<td th:text="${actionHistory.deviceType}"></td>
+									<td th:text="${actionHistory.status}"></td>
+									<td th:text="${actionHistory.time}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<nav>
+						<ul class="pagination justify-content-center">
+							<!-- Previous button -->
+							<li th:class="${currentPage == 0} ? 'disabled' : ''" class="page-item">
+								<a th:href="${currentPage == 0} ? '#' : 
+						                @{/actionHistory(page=${currentPage - 1}, 
+						                size=${pageSize}, 
+						                sortBy=${sortBy}, sortOrder=${sortOrder})}" aria-label="Previous" class="page-link">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+
+							</li>
+							<!-- Page numbers -->
+							<li th:each="i : ${#numbers.sequence( T(java.lang.Math).max(0, currentPage - 2)
+								, T(java.lang.Math).min(actionHistoryPage.totalPages - 1, currentPage + 2))}"
+								th:classappend="${currentPage == i} ? 'active' : ''">
+								<a th:href="@{/actionHistory(page=${i}, size=${pageSize}, 
+						                sortBy=${sortBy}, sortOrder=${sortOrder})}" th:text="${i + 1}" class="page-link">1</a>
+							</li>
+							<!-- Next button -->
+							<li th:class="${currentPage == actionHistoryPage.totalPages - 1} ? 'disabled' : ''">
+								<a th:href="${currentPage == actionHistoryPage.totalPages - 1} ? '#' : @{/actionHistory(page=${currentPage + 1}, size=${pageSize}, sortBy=${sortBy}, sortOrder=${sortOrder})}"
+									aria-label="Next" class="page-link">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</form>
+			</div>
+			<!-- main-panel ends -->
+			<!-- page-body-wrapper ends -->
+		</div>
+		<!-- container-scroller -->
+		<!-- plugins:js -->
+		<script src="assets/vendors/js/vendor.bundle.base.js"></script>
+		<!-- endinject -->
+		<!-- Plugin js for this page -->
+		<script src="assets/vendors/chart.js/chart.umd.js"></script>
+		<!-- <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script> -->
+		<!-- End plugin js for this page -->
+		<!-- inject:js -->
+		<!-- endinject -->
+		<!-- Custom js for this page -->
+		<script src="assets/js/chartTH.js"></script>
+		<script src="assets/js/luxChart.js"></script>
+		<script src="assets/js/dashboard.js"></script>
+		<script src="/assets/js/TimeChoose.js"></script>
+		<!-- End custom js for this page -->
+</body>
+
+</html>

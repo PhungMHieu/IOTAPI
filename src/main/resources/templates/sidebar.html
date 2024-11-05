@@ -1,0 +1,42 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="sidebarFragment">
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <a href="#" class="nav-link">
+        <div class="nav-profile-image">
+          <img src="assets/images/faces/face1.jpg" alt="profile" />
+          <span class="login-status online"></span>
+          <!--change to offline or busy as needed-->
+        </div>
+        <div class="nav-profile-text d-flex flex-column">
+          <span class="font-weight-bold mb-2">Phùng Minh Hiếu</span>
+          <span class="text-secondary text-small">Sinh viên PTIT</span>
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/index">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/dataSensor">
+        <span class="menu-title">Data Sensor</span>
+        <i class="mdi mdi-access-point-minus menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/actionHistory">
+        <span class="menu-title">Action History</span>
+        <i class="mdi mdi-cursor-default-click-outline menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/profile">
+        <span class="menu-title">Profile</span>
+        <i class="mdi mdi-account-card-outline menu-icon"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
